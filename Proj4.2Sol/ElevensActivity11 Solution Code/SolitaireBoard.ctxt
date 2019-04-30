@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=
+comment0.target=SolitaireBoard()
+comment1.params=
+comment1.target=void\ placeCards()
+comment2.params=selectedCards
+comment2.target=boolean\ isLegal(java.util.List)
+comment3.params=
+comment3.target=boolean\ anotherPlayIsPossible()
+numComments=4
