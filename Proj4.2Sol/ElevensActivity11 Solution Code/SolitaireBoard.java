@@ -37,10 +37,12 @@ public class SolitaireBoard extends Board
         
     public SolitaireBoard() {
         super(BOARD_SIZE, RANKS, SUITS, POINT_VALUES);
+        placeInitialCards();
      }
     
      
-    public void placeCards(){
+    public void placeInitialCards(){
+        deck.shuffle();
         List<Card> r1 = new ArrayList<Card>();
         int i = 0;
         while( i < 1 ) {
@@ -85,7 +87,7 @@ public class SolitaireBoard extends Board
         
         List<Card> r7 = new ArrayList<Card>();
         int o = 0;
-        while( o < 3 ) {
+        while( o < 7 ) {
             r7.add(deck.deal());
             o++;
         }
@@ -97,12 +99,23 @@ public class SolitaireBoard extends Board
         boardLists.add(4, r5);
         boardLists.add(5, r6);
         boardLists.add(6, r7);
-        System.out.println(boardLists);
+        
+        /*for (List<Card> row: boardLists){
+            for (Card c : row) {
+                System.out.println(c);
+            }
+        } */
+        
+        System.out.println(deck);
     }
     
     
-    public boolean isLegal(List<Integer> selectedCards){
-        return false;
+    public boolean isLegal(Card moved, Card inPlace){
+        if ((inPlace.pointValue() - 1 == moved.pointValue()) && (inPlace.){
+            return true;
+        } else {
+            return false;
+        }
     }
     public boolean anotherPlayIsPossible(){
         return false;
