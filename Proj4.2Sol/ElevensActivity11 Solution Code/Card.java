@@ -77,6 +77,9 @@ public class Card {
         return isRed;
     }
     
+    public boolean faceDown(){
+        return faceDown;
+    }
     
     
     public void toggleIsRed(){

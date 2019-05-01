@@ -1,0 +1,21 @@
+/**
+ * 
+ */
+package Solitaire;
+
+/**
+ * @author Dhiraj Koppanathi
+ * @version 05/01/2019
+ *
+ */
+public class Card {
+	private String suit;
+	private String rank;
+	private String imgFile;
+	private int val;
+	
+	private final static int FACE_DOWN = 0;
+	private final static int FACE_UP = 1;
+	
+	
+}

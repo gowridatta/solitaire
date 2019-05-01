@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+package Solitaire;
+
+/**
+ * @author Dhiraj Koppanathi
+ * @version 05/01/2019
+ *
+ */
+public class Card {
+	
+}

@@ -1,0 +1,60 @@
+/**
+ * 
+ */
+package Solitaire;
+
+/**
+ * @author Dhiraj Koppanathi
+ * @version 05/01/2019
+ *
+ */
+public class Card {
+	private String suit;
+	private String rank;
+	private String imgFile;
+	private int val;
+	private boolean face;
+	
+	private final static boolean FACE_DOWN = false;
+	private final static boolean FACE_UP = true;
+	
+	public Card(String s, String r, String i, int v, boolean f){
+		setSuit(s);
+		setRank(r);
+		setImgFile(i);
+		setVal(v);
+		setFace(f);
+	}
+	public String getSuit() {
+		return suit;
+	}
+	public void setSuit(String suit) {
+		this.suit = suit;
+	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+	public String getImgFile() {
+		return imgFile;
+	}
+	public void setImgFile(String imgFile) {
+		this.imgFile = imgFile;
+	}
+	public int getVal() {
+		return val;
+	}
+	public void setVal(int val) {
+		this.val = val;
+	}
+	public boolean getFace() {
+		return face;
+	}
+	public void setFace(boolean face) {
+		this.face = face;
+	}
+	
+	
+}

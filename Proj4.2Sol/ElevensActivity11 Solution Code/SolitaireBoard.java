@@ -109,14 +109,19 @@ public class SolitaireBoard extends Board
         System.out.println(deck);
     }
     
+    @Override
+    public boolean isLegal(List<Integer> selected){
+        return false;
+    }
     
-    public boolean isLegal(Card moved, Card inPlace){
-        if ((inPlace.pointValue() - 1 == moved.pointValue()) && (inPlace.){
+    public boolean movePossible(Card moved, Card inPlace){
+        if ((inPlace.pointValue() - 1 == moved.pointValue()) && (inPlace.isRed() != moved.isRed()) && !(inPlace.faceDown())){
             return true;
         } else {
             return false;
         }
     }
+    
     public boolean anotherPlayIsPossible(){
         return false;
     }
