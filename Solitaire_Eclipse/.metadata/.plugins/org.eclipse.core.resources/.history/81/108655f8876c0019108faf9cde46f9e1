@@ -1,0 +1,129 @@
+/**
+ * 
+ */
+package Solitaire;
+
+import java.awt.List;
+import java.util.ArrayList;
+
+/**
+ * @author Dhiraj Koppanathi
+ * @version 5/1/2019
+ */
+public class Deck {
+	
+	private ArrayList<Card> dealtCards = new ArrayList<Card>();
+	private ArrayList<Card> undealtCards = new ArrayList<Card>();
+	private int size;
+	
+	private static final String[] SUITS = {"hearts", "spades", "diamonds", "clovers"};
+	private static final String[] RANKS = {"ace", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
+	
+	public Deck() {
+		
+	}
+	
+	public void createDeck(){
+		for (String s : SUITS) {
+			for (String r : RANKS) {
+				Card c = new Card(s, r);
+				undealtCards.add(c); 
+			}
+		}
+		setSize(undealtCards.size());
+	}
+	
+	public void shuffle() {
+		for (int k = undealtCards.size() - 1; k > 0; k--) {
+			int howMany = k + 1;
+			int start = 0;
+			int randPos = (int) (Math.random() * howMany) + start;
+			Card temp = undealtCards.get(k);
+			undealtCards.set(k, undealtCards.get(randPos));
+			undealtCards.set(randPos, temp);
+		}
+		size = undealtCards.size();
+	}
+	
+	public Card deal() {
+		if (undealtCards.isEmpty()) {
+			return null;
+		}
+		size--;
+		Card c = undealtCards.remove(size);
+		dealtCards.add(c);
+		return c;
+	}
+	
+	public void placeStartingCards() {
+		List<Card> r1 = new ArrayList<Card>();
+        int i = 0;
+        while( i < 1 ) {
+            r1.add(deck.deal());
+            i++;
+        }
+        
+        List<Card> r2 = new ArrayList<Card>();
+        int j = 0;
+        while( j < 2 ) {
+            r2.add(deck.deal());
+            j++;
+        }
+        
+        List<Card> r3 = new ArrayList<Card>();
+        int k = 0;
+        while( k < 3 ) {
+            r3.add(deck.deal());
+            k++;
+        }
+        
+        List<Card> r4 = new ArrayList<Card>();
+        int l = 0;
+        while( l < 4 ) {
+            r4.add(deck.deal());
+            l++;
+        }
+        
+        List<Card> r5 = new ArrayList<Card>();
+        int m = 0;
+        while( m < 5 ) {
+            r5.add(deck.deal());
+            m++;
+        }
+        
+        List<Card> r6 = new ArrayList<Card>();
+        int n = 0;
+        while( n < 6 ) {
+            r6.add(deck.deal());
+            n++;
+        }
+        
+        List<Card> r7 = new ArrayList<Card>();
+        int o = 0;
+        while( o < 7 ) {
+            r7.add(deck.deal());
+            o++;
+        }
+        
+        boardLists.add(0, r1);
+        boardLists.add(1, r2);
+        boardLists.add(2, r3);
+        boardLists.add(3, r4);
+        boardLists.add(4, r5);
+        boardLists.add(5, r6);
+        boardLists.add(6, r7);
+	}
+
+	public int getSize() {
+		return size;
+	}
+	
+	private void setSize(int size) {
+		this.size = size;
+	}
+	
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+}

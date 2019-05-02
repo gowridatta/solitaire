@@ -1,0 +1,15 @@
+/**
+ * 
+ */
+package Solitaire;
+
+import java.util.ArrayList;
+
+/**
+ * @author Dhiraj Koppanathi
+ * @version 5/1/2019
+ */
+public class Deck {
+	private ArrayList<Card> cards = new ArrayList<Card>(52);
+
+}

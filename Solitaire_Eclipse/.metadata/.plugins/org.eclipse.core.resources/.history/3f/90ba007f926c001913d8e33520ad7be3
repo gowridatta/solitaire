@@ -1,0 +1,13 @@
+package Solitaire;
+
+import java.util.ArrayList;
+
+public class CardStack{
+	
+	private ArrayList<Card> row = new ArrayList<Card>();
+	
+	public CardStack() {
+		
+	}
+
+}

@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+package Solitaire;
+
+import java.util.ArrayList;
+
+/**
+ * @author Dhiraj Koppanathi
+ * @version 5/1/2019
+ */
+public class Deck {
+	
+	private ArrayList<Card> cards = new ArrayList<Card>(52);
+	
+	private static final String[] SUITS = {"hearts", "spades", "diamonds", "clovers"};
+	private static final String[] RANKS = {"ace", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
+	
+	public Deck() {
+		
+	}
+	
+	public void createDeck(){
+		for (String s : SUITS) {
+			for (String r : RANKS) {
+				Card c = new Card(s, r);
+				cards.add(c); 
+			}
+		}
+		
+	}
+
+}

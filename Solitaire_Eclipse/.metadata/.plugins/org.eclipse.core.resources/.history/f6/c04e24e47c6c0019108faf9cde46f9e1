@@ -1,0 +1,110 @@
+/**
+ * 
+ */
+package Solitaire;
+
+/**
+ * @author Dhiraj Koppanathi
+ * @version 05/01/2019
+ *
+ */
+public class Card {
+	private String suit;
+	private String rank;
+	private String imgFile;
+	private int val;
+	private boolean face;
+	
+	private final static boolean FACE_DOWN = false;
+	private final static boolean FACE_UP = true;
+	
+	public Card(){
+		setSuit("hearts");
+		setRank("ace");
+		setImgFile(rank + "_of_" + suit + ".png");
+		setVal(0);
+		setFace(FACE_UP);
+	}
+	
+	public Card(String s, String r, int v, boolean f){
+		setSuit(s);
+		setRank(r);
+		setImgFile(rank + "_of_" + suit + ".png");
+		setVal(v);
+		setFace(f);
+	}
+	
+	
+	public String getSuit() {
+		return suit;
+	}
+	public void setSuit(String suit) {
+		if (suit.equals("hearts")   ||
+			suit.equals("spades")   ||
+			suit.equals("diamonds") ||
+			suit.equals("clovers")) 
+		{
+			this.suit = suit;
+		} 
+		else {
+			throw new IllegalArgumentException("Invalid Suit");
+		}
+		
+	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		if (rank.equals("ace")   ||
+			rank.equals("2")     ||
+			rank.equals("3")     ||
+			rank.equals("4")     ||
+			rank.equals("5")     ||
+			rank.equals("6")     || 
+			rank.equals("7")     ||
+			rank.equals("8")     ||
+			rank.equals("9")     ||
+			rank.equals("10")    ||
+			rank.equals("jack")  ||
+			rank.equals("queen") ||
+			rank.equals("king")) 
+		{
+			this.rank = rank;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Rank");
+		}
+	}
+	public String getImgFile() {
+		return imgFile;
+	}
+	public void setImgFile(String imgFile) {
+		this.imgFile = imgFile;
+	}
+	public int getVal() {
+		return val;
+	}
+	public void setVal(int val) {
+		if (val >= 1 && val <= 13) {
+			this.val = val;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Point Value");
+		}
+		
+	}
+	public boolean getFace() {
+		return face;
+	}
+	public void setFace(boolean face) {
+		this.face = face;
+	}
+	public void toggleFace() {
+		this.face = !this.face;
+		if(!this.face) {
+			setImgFile("red_joker.png");
+		}
+	}
+	
+	
+}

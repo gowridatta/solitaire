@@ -12,24 +12,31 @@ public class Card {
 	private String suit;
 	private String rank;
 	private String imgFile;
+	private String color;
 	private int val;
 	private boolean face;
+	
 	
 	private final static boolean FACE_DOWN = false;
 	private final static boolean FACE_UP = true;
 	
-	public Card(){
-		setSuit("hearts");
-		setRank("ace");
-		setImgFile(rank + suit + ".gif");
-		setVal(0);
-		setFace(FACE_UP);
-	}
+	private final static String RED = "red";
+	private final static String BLACK = "black";
 	
-	public Card(String s, String r, int v, boolean f){
+	public Card(String s, String r) {
 		setSuit(s);
 		setRank(r);
-		setImgFile(rank + suit + ".gif");
+		setColor2(r);
+		setImgFile(rank + "_of_" + suit + ".png");
+		setVal(r);
+		setFace(FACE_DOWN);
+	}
+	
+	public Card(String s, String r, String i, String c, int v, boolean f){
+		setSuit(s);
+		setRank(r);
+		setImgFile(i);
+		setColor1(c);
 		setVal(v);
 		setFace(f);
 	}
@@ -39,13 +46,41 @@ public class Card {
 		return suit;
 	}
 	public void setSuit(String suit) {
-		this.suit = suit;
+		if (suit.equals("hearts")   ||
+			suit.equals("spades")   ||
+			suit.equals("diamonds") ||
+			suit.equals("clovers")) 
+		{
+			this.suit = suit;
+		} 
+		else {
+			throw new IllegalArgumentException("Invalid Suit");
+		}
+		
 	}
 	public String getRank() {
 		return rank;
 	}
 	public void setRank(String rank) {
-		this.rank = rank;
+		if (rank.equals("ace")   ||
+			rank.equals("2")     ||
+			rank.equals("3")     ||
+			rank.equals("4")     ||
+			rank.equals("5")     ||
+			rank.equals("6")     || 
+			rank.equals("7")     ||
+			rank.equals("8")     ||
+			rank.equals("9")     ||
+			rank.equals("10")    ||
+			rank.equals("jack")  ||
+			rank.equals("queen") ||
+			rank.equals("king")) 
+		{
+			this.rank = rank;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Rank");
+		}
 	}
 	public String getImgFile() {
 		return imgFile;
@@ -57,13 +92,93 @@ public class Card {
 		return val;
 	}
 	public void setVal(int val) {
-		this.val = val;
+		if (val >= 1 && val <= 13) {
+			this.val = val;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Point Value");
+		}
+	}
+	public void setVal(String cardRank) {
+		if (cardRank.equals("ace")) {
+			this.val = 1;
+		}
+		else if (cardRank.equals("2")) {
+			this.val = 2;
+		}
+		else if (cardRank.equals("3")) {
+			this.val = 3;
+		}
+		else if (cardRank.equals("4")) {
+			this.val = 4;
+		}
+		else if (cardRank.equals("5")) {
+			this.val = 5;
+		}
+		else if (cardRank.equals("6")) {
+			this.val = 6;
+		}
+		else if (cardRank.equals("7")) {
+			this.val = 7;
+		}
+		else if (cardRank.equals("8")) {
+			this.val = 8;
+		}
+		else if (cardRank.equals("9")) {
+			this.val = 9;
+		}
+		else if (cardRank.equals("10")) {
+			this.val = 10;
+		}
+		else if (cardRank.equals("jack")) {
+			this.val = 11;
+		}
+		else if (cardRank.equals("queen")) {
+			this.val = 12;
+		}
+		else if (cardRank.equals("king")) {
+			this.val = 13;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Card Rank Used to Determine Value");
+		}
 	}
 	public boolean getFace() {
 		return face;
 	}
 	public void setFace(boolean face) {
 		this.face = face;
+	}
+	public void toggleFace() {
+		this.face = !this.face;
+		if(!this.face) {
+			// find face down card image 500 x 726 pixels to fit into rest of card images
+			setImgFile("red_joker.png");
+		} else {
+			setImgFile(rank + "_of_" + suit + ".png");
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return (rank + " of " + suit + " (Value: " + val + ")");
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor1(String color) {
+		this.color = color;
+	}
+	public void setColor2(String cardRank) {
+		if (cardRank.equals("hearts") ||
+			cardRank.equals("diamonds")) {
+			this.color = RED;
+		} else if (cardRank.equals("spades") ||
+				   cardRank.equals("clovers")) {
+			this.color = BLACK;
+		}
 	}
 	
 	
