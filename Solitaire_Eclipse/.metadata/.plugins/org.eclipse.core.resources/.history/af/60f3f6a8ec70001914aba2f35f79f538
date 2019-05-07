@@ -95,8 +95,7 @@ public class SolitaireGame {
 //		frame.getContentPane().setLayout(new GridLayout(1, 1, 1, 1));
 		
 		
-		Card c = new Card("spades", "ace");
-		System.out.println(c.getImgFile());
+		Card c = new Card("ace", "spades");
 		JPanel content = new JPanel(new BorderLayout());
 		JLabel cardLabel = new JLabel(
 				new ImageIcon(c.getImgFile()));

@@ -23,13 +23,11 @@ public class Card {
 	private final static String RED = "red";
 	private final static String BLACK = "black";
 	
-	// "C:\\Users\\dhiraj56457\\Documents\\AP_CSA\\Game_Solitaire_Proj\\Solitaire_Eclipse\\Solitaire\\
-	
 	public Card(String s, String r) {
 		setSuit(s);
 		setRank(r);
 		setColor2(r);
-		setImgFile("C:\\Users\\dhiraj56457\\Documents\\AP_CSA\\Game_Solitaire_Proj\\Solitaire_Eclipse\\Solitaire\\Card_Images\\" + rank + "_of_" + suit + ".png");
+		setImgFile("../Card_Images/" + rank + "_of_" + suit + ".png");
 		setVal(r);
 		setFace(FACE_DOWN);
 	}
