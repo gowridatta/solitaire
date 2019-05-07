@@ -114,7 +114,6 @@ public class SolitaireGame {
 		}		
 		frame.add(content);
 		frame.setVisible(true);
-		
 //		frame.getContentPane().add(btn1);
 //		frame.getContentPane().add(btn2);
 //		frame.getContentPane().add(btn3);
