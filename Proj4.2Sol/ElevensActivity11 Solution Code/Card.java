@@ -19,17 +19,6 @@ public class Card {
      * int value that holds the point value.
      */
     private int pointValue;
-    
-    /**
-     * boolean value that holds if the card is red or not (blue).
-     */
-    private boolean isRed;
-    
-    /**
-     * boolean value that holds if the card is face down or not.
-     */
-    private boolean faceDown;
-
 
    /**
      * Creates a new <code>Card</code> instance.
@@ -72,24 +61,7 @@ public class Card {
     public int pointValue() {
         return pointValue;
     }
-    
-    public boolean isRed(){
-        return isRed;
-    }
-    
-    public boolean faceDown(){
-        return faceDown;
-    }
-    
-    
-    public void toggleIsRed(){
-        isRed = !isRed;
-    }
-    
-    public void toggleFaceDown(){
-        faceDown = !faceDown;
-    }
-
+   
     /** Compare this card with the argument.
      * @param otherCard the other card to compare to this
      * @return true if the rank, suit, and point value of this card

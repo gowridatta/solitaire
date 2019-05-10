@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 public class CardStack{
 	
-	Deck d = new Deck();
 	private ArrayList<Card> row = new ArrayList<Card>();
 	private int numRow;
 	
-	public CardStack(int r) {
+	public CardStack(int r, Deck d) {
 		setNumRow(r);
 		int i = 0;
 		while (i < r) {
