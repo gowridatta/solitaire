@@ -11,12 +11,12 @@ import java.util.ArrayList;
  */
 public class Deck {
 	
-	public ArrayList<Card> dealtCards = new ArrayList<Card>();
-	public ArrayList<Card> undealtCards = new ArrayList<Card>();
+	private ArrayList<Card> dealtCards = new ArrayList<Card>();
+	private ArrayList<Card> undealtCards = new ArrayList<Card>();
 	private int size;
 	
 	private static final String[] SUITS = {"hearts", "spades", "diamonds", "clovers"};
-	private static final String[] RANKS = {"ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
+	private static final String[] RANKS = {"ace", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"};
 	
 	public Deck() {
 		createDeck();

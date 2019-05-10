@@ -95,14 +95,15 @@ public class SolitaireGame {
 //		frame.getContentPane().setLayout(new GridLayout(1, 1, 1, 1));
 		
 		
-//		Card c = new Card("spades", "ace");
-//		System.out.println(c.getImgFile());
+		Card c = new Card("spades", "ace");
+		System.out.println(c.getImgFile());
 		JPanel content = new JPanel(new BorderLayout());
-//		JLabel cardLabel = new JLabel(
-//				new ImageIcon(c.getImgFile()));
-//		cardLabel.setSize(100,100);
-//		content.add(cardLabel);
-
+		JLabel cardLabel = new JLabel(
+				new ImageIcon(c.getImgFile()));
+		cardLabel.setSize(100,100);
+		content.add(cardLabel);
+		frame.add(content);
+		frame.setVisible(true);
 		
 		
 		Deck d = new Deck();
@@ -110,11 +111,7 @@ public class SolitaireGame {
 			JLabel cardLabels = new JLabel(
 					new ImageIcon(card.getImgFile()));
 			cardLabels.setSize(10,10);
-			content.add(cardLabels);
-		}		
-		frame.add(content);
-		frame.setVisible(true);
-		
+		}
 //		frame.getContentPane().add(btn1);
 //		frame.getContentPane().add(btn2);
 //		frame.getContentPane().add(btn3);

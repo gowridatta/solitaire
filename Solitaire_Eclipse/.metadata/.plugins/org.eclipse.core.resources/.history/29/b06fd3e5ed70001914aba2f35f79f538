@@ -29,7 +29,7 @@ public class Card {
 		setSuit(s);
 		setRank(r);
 		setColor2(r);
-		setImgFile("C:\\Users\\dhiraj56457\\Documents\\AP_CSA\\Game_Solitaire_Proj\\Solitaire_Eclipse\\Solitaire\\Card_Images\\" + rank + "_of_" + suit + ".png");
+		setImgFile("..\\..Card_Images\\" + rank + "_of_" + suit + ".png");
 		setVal(r);
 		setFace(FACE_DOWN);
 	}
@@ -182,8 +182,6 @@ public class Card {
 			this.color = BLACK;
 		}
 	}
-	
-	
 	
 	
 }
