@@ -75,7 +75,8 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	/** The "you've won n out of m games" message. */
 	private JLabel totalsMsg;
 	/** The card displays. */
-	private JLabel[] displayCards;
+	private JLabel[] playerDisplayCards;
+	private JLabel[] compDisplayCards;
 	/** The win message. */
 	private JLabel winMsg;
 	/** The loss message. */
@@ -103,14 +104,14 @@ public class CardGameGUI extends JFrame implements ActionListener {
 
 		// Initialize cardCoords using 5 cards per row
 		
-		compCardCoords = new Point[2];
-		playerCardCoords = new Point[2];
+		compCardCoords = new Point[12];
+		playerCardCoords = new Point[12];
 		
-		compCardCoords[0] = new Point(LAYOUT_LEFT, LAYOUT_TOP);
-		compCardCoords[1] = new Point(LAYOUT_LEFT + LAYOUT_WIDTH_INC, LAYOUT_TOP);
+		compCardCoords[0] = new Point(100, 100);
+		compCardCoords[1] = new Point(150, 100);
 		
-		playerCardCoords[0] = new Point(LAYOUT_LEFT, LAYOUT_TOP + LAYOUT_HEIGHT_INC);
-		playerCardCoords[1] = new Point(LAYOUT_LEFT + LAYOUT_WIDTH_INC, LAYOUT_TOP + LAYOUT_HEIGHT_INC);
+		playerCardCoords[0] = new Point(100, 200);
+		playerCardCoords[1] = new Point(150, 200);
 
 		// selections = new boolean[board.size()];
 		initDisplay();
@@ -133,19 +134,39 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	 * Draw the display (cards and messages).
 	 */
 	public void repaint() {
-		for (int k = 0; k < board.size(); k++) {
-			String cardImageFileName =
-				imageFileName(board.cardAt(k));
-			URL imageURL = getClass().getResource(cardImageFileName);
-			if (imageURL != null) {
-				ImageIcon icon = new ImageIcon(imageURL);
-				displayCards[k].setIcon(icon);
-				displayCards[k].setVisible(true);
-			} else {
-				throw new RuntimeException(
-					"Card image not found: \"" + cardImageFileName + "\"");
+		for (int k = 0; k < compDisplayCards.length; k++) {
+			if (compDisplayCards[k] != null) {
+				String cardImageFileName =
+						imageFileName(board.cardAt(k));
+				URL imageURL = getClass().getResource(cardImageFileName);
+				if (imageURL != null) {
+					ImageIcon icon = new ImageIcon(imageURL);
+					compDisplayCards[k].setIcon(icon);
+					compDisplayCards[k].setVisible(true);
+				} else {
+					throw new RuntimeException(
+							"Card image not found: \"" + cardImageFileName + "\"");
+				}
 			}
 		}
+		
+		for (int k = 0; k < playerDisplayCards.length; k++) {
+			if (playerDisplayCards[k] != null) {
+				String cardImageFileName =
+									imageFileName(board.cardAt(k));
+				URL imageURL = getClass().getResource(cardImageFileName);
+				if (imageURL != null) {
+						ImageIcon icon = new ImageIcon(imageURL);
+						playerDisplayCards[k].setIcon(icon);
+						playerDisplayCards[k].setVisible(true);
+						} else {
+								throw new RuntimeException(
+										"Card image not found: \"" + cardImageFileName + "\"");
+							}
+			}
+
+		}
+		
 		statusMsg.setText(board.deckSize()
 			+ " undealt cards remain.");
 		statusMsg.setVisible(true);
@@ -194,23 +215,27 @@ public class CardGameGUI extends JFrame implements ActionListener {
 		panel.setLayout(null);
 		panel.setPreferredSize(
 			new Dimension(DEFAULT_WIDTH - 20, height - 20));
-		displayCards = new JLabel[(playerCardCoords.length + compCardCoords.length)];
-		int c = 0;
+		playerDisplayCards = new JLabel[(playerCardCoords.length)];
+		compDisplayCards = new JLabel[(compCardCoords.length)];
 		for (int k = 0; k < compCardCoords.length; k++) {
-			displayCards[k] = new JLabel();
-			panel.add(displayCards[k]);
+			compDisplayCards[k] = new JLabel();
+			panel.add(compDisplayCards[k]);
 			for (Point p : compCardCoords) {
-				displayCards[k].setBounds(p.x, p.y,
+				if (p != null) {
+					compDisplayCards[k].setBounds(p.x, p.y,
 										CARD_WIDTH, CARD_HEIGHT);
+				}
+
 			}
-			c++;
 		}
 		for (int l = 0; l < playerCardCoords.length; l++) {
-			displayCards[c + l] = new JLabel();
-			panel.add(displayCards[c + l]);
+			playerDisplayCards[l] = new JLabel();
+			panel.add(playerDisplayCards[l]);
 			for (Point p : playerCardCoords) {
-				displayCards[c + l].setBounds(p.x, p.y,
+				if (p != null) {
+					playerDisplayCards[l].setBounds(p.x, p.y,
 										CARD_WIDTH, CARD_HEIGHT);
+				}
 			}
 		}
 			
