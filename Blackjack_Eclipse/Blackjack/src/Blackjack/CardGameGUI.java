@@ -38,12 +38,12 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	/** Height of a card. */
 	private static final int CARD_HEIGHT = 97;
 	/** Row (y coord) of the upper left corner of the first card. */
-	private static final int LAYOUT_TOP = 30;
+	private static final int LAYOUT_TOP = 100;
 	/** Column (x coord) of the upper left corner of the first card. */
-	private static final int LAYOUT_LEFT = 27;
+	private static final int LAYOUT_LEFT = 100;
 	/** Distance between the upper left x coords of
 	 *  two horizonally adjacent cards. */
-	private static final int LAYOUT_WIDTH_INC = 100;
+	private static final int LAYOUT_WIDTH_INC = 50;
 	/** Distance between the upper left y coords of
 	 *  two vertically adjacent cards. */
 	private static final int LAYOUT_HEIGHT_INC = 100;
@@ -77,6 +77,10 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	/** The card displays. */
 	private JLabel[] playerDisplayCards;
 	private JLabel[] compDisplayCards;
+	
+//	private ArrayList<Card> playerCards;
+//	private ArrayList<Card> compCards;
+	
 	/** The win message. */
 	private JLabel winMsg;
 	/** The loss message. */
@@ -104,14 +108,21 @@ public class CardGameGUI extends JFrame implements ActionListener {
 
 		// Initialize cardCoords using 5 cards per row
 		
+		board.playerCards.add(board.deck.deal());
+		board.playerCards.add(board.deck.deal());
+		
+		board.compCards.add(board.deck.deal());
+		board.compCards.add(board.deck.deal());
+		
 		compCardCoords = new Point[12];
 		playerCardCoords = new Point[12];
 		
-		compCardCoords[0] = new Point(100, 100);
-		compCardCoords[1] = new Point(150, 100);
 		
-		playerCardCoords[0] = new Point(100, 200);
-		playerCardCoords[1] = new Point(150, 200);
+		compCardCoords[0] = new Point(LAYOUT_LEFT, LAYOUT_TOP);
+		compCardCoords[1] = new Point(LAYOUT_LEFT + LAYOUT_WIDTH_INC, LAYOUT_TOP);
+		
+		playerCardCoords[0] = new Point(LAYOUT_LEFT, LAYOUT_TOP + LAYOUT_HEIGHT_INC);
+		playerCardCoords[1] = new Point(LAYOUT_LEFT + LAYOUT_WIDTH_INC, LAYOUT_TOP + LAYOUT_HEIGHT_INC);
 
 		// selections = new boolean[board.size()];
 		initDisplay();
@@ -129,31 +140,58 @@ public class CardGameGUI extends JFrame implements ActionListener {
 			}
 		});
 	}
-
-	/**
-	 * Draw the display (cards and messages).
-	 */
-	public void repaint() {
-		for (int k = 0; k < compDisplayCards.length; k++) {
-			if (compDisplayCards[k] != null) {
-				String cardImageFileName =
-						imageFileName(board.cardAt(k));
-				URL imageURL = getClass().getResource(cardImageFileName);
-				if (imageURL != null) {
-					ImageIcon icon = new ImageIcon(imageURL);
-					compDisplayCards[k].setIcon(icon);
-					compDisplayCards[k].setVisible(true);
-				} else {
-					throw new RuntimeException(
-							"Card image not found: \"" + cardImageFileName + "\"");
+	
+	public void displayCards() {
+		for(int c = 0; c < board.compCards.size(); c++) {
+			compCardCoords[c] = new Point(LAYOUT_LEFT * ((LAYOUT_WIDTH_INC) * (c+1)), LAYOUT_TOP);
+		}
+		
+		compDisplayCards = new JLabel[(compCardCoords.length)];
+		for (int k = 0; k < compCardCoords.length; k++) {
+			compDisplayCards[k] = new JLabel();
+			panel.add(compDisplayCards[k]);
+			for (Point p : compCardCoords) {
+				if (p != null) {
+					compDisplayCards[k].setBounds(p.x, p.y,
+										CARD_WIDTH, CARD_HEIGHT);
 				}
 			}
 		}
 		
-		for (int k = 0; k < playerDisplayCards.length; k++) {
-			if (playerDisplayCards[k] != null) {
+		for (int k = 0; k < board.compCards.size(); k++) {
+			String cardImageFileName =
+					board.compCards.get(k).getImg();
+			URL imageURL = getClass().getResource(cardImageFileName);
+			if (imageURL != null) {
+				ImageIcon icon = new ImageIcon(imageURL);
+				compDisplayCards[k].setIcon(icon);
+				compDisplayCards[k].setVisible(true);
+			} else {
+				throw new RuntimeException(
+						"Card image not found: \"" + cardImageFileName + "\"");
+			}
+	    }
+		
+		for(int c = 0; c < board.playerCards.size(); c++) {
+			playerCardCoords[c] = new Point(LAYOUT_LEFT * ((LAYOUT_WIDTH_INC) * (c+1)), LAYOUT_TOP + LAYOUT_HEIGHT_INC);
+		}
+		
+		playerDisplayCards = new JLabel[(playerCardCoords.length)];
+		for (int l = 0; l < playerCardCoords.length; l++) {
+			playerDisplayCards[l] = new JLabel();
+			panel.add(playerDisplayCards[l]);
+			for (Point p : playerCardCoords) {
+				if (p != null) {
+					playerDisplayCards[l].setBounds(p.x, p.y,
+										CARD_WIDTH, CARD_HEIGHT);
+				}
+			}
+		}
+		
+		for (int k = 0; k < board.playerCards.size(); k++) {
+		     if (board.playerCards.get(k) != null) {
 				String cardImageFileName =
-									imageFileName(board.cardAt(k));
+									board.playerCards.get(k).getImg();
 				URL imageURL = getClass().getResource(cardImageFileName);
 				if (imageURL != null) {
 						ImageIcon icon = new ImageIcon(imageURL);
@@ -163,9 +201,47 @@ public class CardGameGUI extends JFrame implements ActionListener {
 								throw new RuntimeException(
 										"Card image not found: \"" + cardImageFileName + "\"");
 							}
-			}
-
+		      }
 		}
+		
+		
+	}
+
+	/**
+	 * Draw the display (cards and messages).
+	 */
+	public void repaint() {
+//		for (int k = 0; k < board.compCards.size(); k++) {
+//			String cardImageFileName =
+//					board.compCards.get(k).getImg();
+//			URL imageURL = getClass().getResource(cardImageFileName);
+//			if (imageURL != null) {
+//				ImageIcon icon = new ImageIcon(imageURL);
+//				compDisplayCards[k].setIcon(icon);
+//				compDisplayCards[k].setVisible(true);
+//			} else {
+//				throw new RuntimeException(
+//						"Card image not found: \"" + cardImageFileName + "\"");
+//			}
+//	    }
+//		
+//		for (int k = 0; k < board.playerCards.size(); k++) {
+//		     if (board.playerCards.get(k) != null) {
+//				String cardImageFileName =
+//									board.playerCards.get(k).getImg();
+//				URL imageURL = getClass().getResource(cardImageFileName);
+//				if (imageURL != null) {
+//						ImageIcon icon = new ImageIcon(imageURL);
+//						playerDisplayCards[k].setIcon(icon);
+//						playerDisplayCards[k].setVisible(true);
+//						} else {
+//								throw new RuntimeException(
+//										"Card image not found: \"" + cardImageFileName + "\"");
+//							}
+//		      }
+//		}
+		
+		displayCards();
 		
 		statusMsg.setText(board.deckSize()
 			+ " undealt cards remain.");
@@ -205,7 +281,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
 
 		// Calculate number of rows of cards (5 cards per row)
 		// and adjust JFrame height if necessary
-		int numCardRows = (board.size() + 4) / 5;
+		int numCardRows = 2;
 		int height = DEFAULT_HEIGHT;
 		if (numCardRows > 2) {
 			height += (numCardRows - 2) * LAYOUT_HEIGHT_INC;
@@ -282,9 +358,9 @@ public class CardGameGUI extends JFrame implements ActionListener {
 								  250, 30);
 		panel.add(totalsMsg);
 
-		if (!board.anotherPlayIsPossible()) {
-			signalLoss();
-		}
+//		if (!board.anotherPlayIsPossible()) {
+//			signalLoss();
+//		}
 
 		pack();
 		getContentPane().add(panel);
@@ -352,18 +428,32 @@ public class CardGameGUI extends JFrame implements ActionListener {
 //			} else if (!board.anotherPlayIsPossible()) {
 //				signalLoss();
 //			}
-			List<Integer> handValues = new ArrayList<Integer>(playerCardCoords.length);
-			for(int i = 0; i < playerCardCoords.length; i++) {
-				handValues.add(board.cardAt(2+i).pointValue());
+			List<Integer> dealerHandValues = new ArrayList<Integer>(board.compCards.size());
+			for (int i = 0; i < board.compCards.size(); i++) {
+				dealerHandValues.add(board.compCards.get(i).pointValue());
 			}
-			if (board.checkHandVal(handValues) == 21) {
+			if (board.checkHandVal(dealerHandValues) < 21) {
+				board.compCards.add(board.deck.deal());
+				repaint();
+			} else {
+				repaint();
+			} 
+			
+			board.playerCards.add(board.deck.deal());
+			List<Integer> handValues = new ArrayList<Integer>(board.playerCards.size());
+			for(int i = 0; i < board.playerCards.size(); i++) {
+				handValues.add(board.playerCards.get(i).pointValue());
+			}
+			if (board.checkHandVal(handValues) == 21 && (board.checkHandVal(dealerHandValues) != 21)) {
 				signalWin();
+				repaint();
 			} else if (board.checkHandVal(handValues) > 21){
 				signalLoss();
+				repaint();
 			} else {
-				return;
+				repaint();
 			}
-			repaint();
+			// repaint();
 		} else if (e.getSource().equals(stayButton)) {
 //			board.newGame();
 //			getRootPane().setDefaultButton(hitButton);
@@ -376,12 +466,40 @@ public class CardGameGUI extends JFrame implements ActionListener {
 //			for (int i = 0; i < selections.length; i++) {
 //				selections[i] = false;
 //			}
+			List<Integer> dealerHandValues = new ArrayList<Integer>(board.compCards.size());
+			for (int i = 0; i < board.compCards.size(); i++) {
+				dealerHandValues.add(board.compCards.get(i).pointValue());
+			}
+			
+			List<Integer> handValues = new ArrayList<Integer>(board.playerCards.size());
+			for(int i = 0; i < board.playerCards.size(); i++) {
+				handValues.add(board.playerCards.get(i).pointValue());
+			}
+			
+			while (board.checkHandVal(dealerHandValues) < 21) {
+				board.compCards.add(board.deck.deal());
+				repaint();
+			}
+			
+			if ((board.checkHandVal(dealerHandValues) > 21) && (board.checkHandVal(handValues) == 21)) {
+				signalWin();
+				repaint();
+			} else if ((board.checkHandVal(handValues) == 21) && (board.checkHandVal(dealerHandValues) == 21)) {
+				System.out.println("Tie");
+				repaint();
+			} else if ((board.checkHandVal(handValues) < 21) && (board.checkHandVal(dealerHandValues) == 21)) {
+				signalLoss();
+				repaint();
+			} else if ((board.checkHandVal(handValues) < board.checkHandVal(dealerHandValues))){
+				signalLoss();
+				repaint();
+			} else {
+				repaint();
+			}
+			
 			repaint();
-		} else {
-			signalError();
-			return;
-		}
 	}
+}
 
 	/**
 	 * Display a win.

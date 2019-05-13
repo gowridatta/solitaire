@@ -13,7 +13,7 @@ public class BlackjackBoard extends Board {
 	/**
 	 * The size (number of cards) on the board.
 	 */
-	private static final int BOARD_SIZE = 4;
+	private static final int BOARD_SIZE = 24;
 
 	/**
 	 * The ranks of the cards for this game to be sent to the deck.
@@ -36,6 +36,7 @@ public class BlackjackBoard extends Board {
 	
 	public BlackjackBoard() {
 		super(BOARD_SIZE, RANKS, SUITS, POINT_VALUES);
+		
 		// TODO Auto-generated constructor stub
 	}
 

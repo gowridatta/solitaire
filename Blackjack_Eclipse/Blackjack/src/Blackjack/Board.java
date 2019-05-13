@@ -13,7 +13,8 @@ public abstract class Board {
 	/**
 	 * The cards on this board.
 	 */
-	private Card[] cards;
+	public ArrayList<Card> playerCards;
+	public ArrayList<Card> compCards;
 
 	/**
 	 * The deck of cards being used to play the current game.
@@ -34,13 +35,14 @@ public abstract class Board {
 	 *                    the deck
 	 */
 	public Board(int size, String[] ranks, String[] suits, int[] pointValues) {
-		cards = new Card[size];
+		playerCards = new ArrayList<Card>();
+		compCards = new ArrayList<Card>();
 		deck = new Deck(ranks, suits, pointValues);
 		if (I_AM_DEBUGGING) {
 			System.out.println(deck);
 			System.out.println("----------");
 		}
-		dealMyCards();
+		// dealMyCards();
 	}
 
 	/**
@@ -49,7 +51,7 @@ public abstract class Board {
 	 */
 	public void newGame() {
 		deck.shuffle();
-		dealMyCards();
+		// dealMyCards();
 	}
 
 	/**
@@ -59,30 +61,30 @@ public abstract class Board {
 	 * @return the size of the board
 	 */
 	public int size() {
-		return cards.length;
+		return (playerCards.size() + compCards.size());
 	}
 
 	/**
 	 * Determines if the board is empty (has no cards).
 	 * @return true if this board is empty; false otherwise.
 	 */
-	public boolean isEmpty() {
-		for (int k = 0; k < cards.length; k++) {
-			if (cards[k] != null) {
-				return false;
-			}
-		}
-		return true;
-	}
+//	public boolean isEmpty() {
+//		for (int k = 0; k < playerCards.size(); k++) {
+//			if (playerCards.get(k) != null) {
+//				return false;
+//			} else if()
+//		}
+//		return true;
+//	}
 
 	/**
 	 * Deal a card to the kth position in this board.
 	 * If the deck is empty, the kth card is set to null.
 	 * @param k the index of the card to be dealt.
 	 */
-	public void deal(int k) {
-		cards[k] = deck.deal();
-	}
+//	public void deal(int k) {
+//		deck.deal();
+//	}
 
 	/**
 	 * Accesses the deck's size.
@@ -97,20 +99,20 @@ public abstract class Board {
 	 * @return the card at position k on the board.
 	 * @param k is the board position of the card to return.
 	 */
-	public Card cardAt(int k) {
-		return cards[k];
-	}
+//	public Card cardAt(int k) {
+//		return cards[k];
+//	}
 
 	/**
 	 * Replaces selected cards on the board by dealing new cards.
 	 * @param selectedCards is a list of the indices of the
 	 *        cards to be replaced.
 	 */
-	public void replaceSelectedCards(List<Integer> selectedCards) {
-		for (Integer k : selectedCards) {
-			deal(k.intValue());
-		}
-	}
+//	public void replaceSelectedCards(List<Integer> selectedCards) {
+//		for (Integer k : selectedCards) {
+//			deal(k.intValue());
+//		}
+//	}
 
 	/**
 	 * Gets the indexes of the actual (non-null) cards on the board.
@@ -118,27 +120,27 @@ public abstract class Board {
 	 * @return a List that contains the locations (indexes)
 	 *         of the non-null entries on the board.
 	 */
-	public List<Integer> cardIndexes() {
-		List<Integer> selected = new ArrayList<Integer>();
-		for (int k = 0; k < cards.length; k++) {
-			if (cards[k] != null) {
-				selected.add(new Integer(k));
-			}
-		}
-		return selected;
-	}
+//	public List<Integer> cardIndexes() {
+//		List<Integer> selected = new ArrayList<Integer>();
+//		for (int k = 0; k < cards.length; k++) {
+//			if (cards[k] != null) {
+//				selected.add(new Integer(k));
+//			}
+//		}
+//		return selected;
+//	}
 
 	/**
 	 * Generates and returns a string representation of this board.
 	 * @return the string version of this board.
 	 */
-	public String toString() {
-		String s = "";
-		for (int k = 0; k < cards.length; k++) {
-			s = s + k + ": " + cards[k] + "\n";
-		}
-		return s;
-	}
+//	public String toString() {
+//		String s = "";
+//		for (int k = 0; k < cards.length; k++) {
+//			s = s + k + ": " + cards[k] + "\n";
+//		}
+//		return s;
+//	}
 
 	/**
 	 * Determine whether or not the game has been won,
@@ -146,17 +148,17 @@ public abstract class Board {
 	 * @return true when the current game has been won;
 	 *         false otherwise.
 	 */
-	public boolean gameIsWon() {
-		if (deck.isEmpty()) {
-			for (Card c : cards) {
-				if (c != null) {
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
-	}
+//	public boolean gameIsWon() {
+//		if (deck.isEmpty()) {
+//			for (Card c : cards) {
+//				if (c != null) {
+//					return false;
+//				}
+//			}
+//			return true;
+//		}
+//		return false;
+//	}
 
 	/**
 	 * Method to be completed by the concrete class that determines
@@ -181,10 +183,10 @@ public abstract class Board {
 	/**
 	 * Deal cards to this board to start the game.
 	 */
-	private void dealMyCards() {
-		for (int k = 0; k < cards.length; k++) {
-			cards[k] = deck.deal();
-		}
-	}
+//	private void dealMyCards() {
+//		for (int k = 0; k < cards.length; k++) {
+//			cards[k] = deck.deal();
+//		}
+//	}
 }
 
