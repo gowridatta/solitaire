@@ -129,6 +129,11 @@ public class CardGameGUI extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		repaint();
 	}
+	
+	public Card dealCard() {
+		Card r = board.deck.deal();
+		return r;
+	}
 
 	/**
 	 * Run the game.
@@ -142,8 +147,11 @@ public class CardGameGUI extends JFrame implements ActionListener {
 	}
 	
 	public void displayCards() {
+		System.out.println("Dealers Cards: ");
 		for(int c = 0; c < board.compCards.size(); c++) {
 			compCardCoords[c] = new Point(LAYOUT_LEFT * ((LAYOUT_WIDTH_INC) * (c+1)), LAYOUT_TOP);
+			
+			System.out.println(board.compCards.get(c));
 		}
 		
 		compDisplayCards = new JLabel[(compCardCoords.length)];
@@ -172,8 +180,11 @@ public class CardGameGUI extends JFrame implements ActionListener {
 			}
 	    }
 		
+		System.out.println("Players Cards: ");
 		for(int c = 0; c < board.playerCards.size(); c++) {
 			playerCardCoords[c] = new Point(LAYOUT_LEFT * ((LAYOUT_WIDTH_INC) * (c+1)), LAYOUT_TOP + LAYOUT_HEIGHT_INC);
+			
+			System.out.println(board.playerCards.get(c));
 		}
 		
 		playerDisplayCards = new JLabel[(playerCardCoords.length)];
@@ -187,6 +198,43 @@ public class CardGameGUI extends JFrame implements ActionListener {
 				}
 			}
 		}
+		
+		for (int k = 0; k < board.playerCards.size(); k++) {
+				String cardImageFileName =
+									board.playerCards.get(k).getImg();
+				URL imageURL = getClass().getResource(cardImageFileName);
+				if (imageURL != null) {
+						ImageIcon icon = new ImageIcon(imageURL);
+						playerDisplayCards[k].setIcon(icon);
+						playerDisplayCards[k].setVisible(true);
+				} else {
+						throw new RuntimeException(
+								"Card image not found: \"" + cardImageFileName + "\"");
+					}
+		  
+		}
+		
+		pack();
+		panel.repaint();
+	}
+
+	/**
+	 * Draw the display (cards and messages).
+	 */
+	public void repaint() {
+		for (int k = 0; k < board.compCards.size(); k++) {
+			String cardImageFileName =
+					board.compCards.get(k).getImg();
+			URL imageURL = getClass().getResource(cardImageFileName);
+			if (imageURL != null) {
+				ImageIcon icon = new ImageIcon(imageURL);
+				compDisplayCards[k].setIcon(icon);
+				compDisplayCards[k].setVisible(true);
+			} else {
+				throw new RuntimeException(
+						"Card image not found: \"" + cardImageFileName + "\"");
+			}
+	    }
 		
 		for (int k = 0; k < board.playerCards.size(); k++) {
 		     if (board.playerCards.get(k) != null) {
@@ -203,43 +251,6 @@ public class CardGameGUI extends JFrame implements ActionListener {
 							}
 		      }
 		}
-		
-		
-	}
-
-	/**
-	 * Draw the display (cards and messages).
-	 */
-	public void repaint() {
-//		for (int k = 0; k < board.compCards.size(); k++) {
-//			String cardImageFileName =
-//					board.compCards.get(k).getImg();
-//			URL imageURL = getClass().getResource(cardImageFileName);
-//			if (imageURL != null) {
-//				ImageIcon icon = new ImageIcon(imageURL);
-//				compDisplayCards[k].setIcon(icon);
-//				compDisplayCards[k].setVisible(true);
-//			} else {
-//				throw new RuntimeException(
-//						"Card image not found: \"" + cardImageFileName + "\"");
-//			}
-//	    }
-//		
-//		for (int k = 0; k < board.playerCards.size(); k++) {
-//		     if (board.playerCards.get(k) != null) {
-//				String cardImageFileName =
-//									board.playerCards.get(k).getImg();
-//				URL imageURL = getClass().getResource(cardImageFileName);
-//				if (imageURL != null) {
-//						ImageIcon icon = new ImageIcon(imageURL);
-//						playerDisplayCards[k].setIcon(icon);
-//						playerDisplayCards[k].setVisible(true);
-//						} else {
-//								throw new RuntimeException(
-//										"Card image not found: \"" + cardImageFileName + "\"");
-//							}
-//		      }
-//		}
 		
 		displayCards();
 		
@@ -366,6 +377,7 @@ public class CardGameGUI extends JFrame implements ActionListener {
 		getContentPane().add(panel);
 		getRootPane().setDefaultButton(hitButton);
 		panel.setVisible(true);
+		
 	}
 
 	/**
@@ -477,7 +489,9 @@ public class CardGameGUI extends JFrame implements ActionListener {
 			}
 			
 			while (board.checkHandVal(dealerHandValues) < 21) {
-				board.compCards.add(board.deck.deal());
+				Card r = board.deck.deal();
+				board.compCards.add(r);
+				dealerHandValues.add(r.pointValue());
 				repaint();
 			}
 			
